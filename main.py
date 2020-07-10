@@ -51,12 +51,18 @@ all_sprites_list.add(ball)
 clock = pygame.time.Clock()
 
 
+
+
+#Global Variables
+scoreA = 0 
+scoreB = 0
+
 def text_objects(text, font):
   textSurface = font.render(text, True, WHITE)
   return textSurface, textSurface.get_rect()
 
 
-def message_display(text, scoreA, scoreB):
+def message_display(text):
   largeText = pygame.font.Font('freesansbold.ttf', 50)
   TextSurf, TextRect = text_objects(text, largeText)
   TextRect.center = ((Width / 2), (Height / 2))
@@ -66,15 +72,15 @@ def message_display(text, scoreA, scoreB):
 
   time.sleep(2)
 
-  main_loop(scoreA, scoreB)
+  main_loop()
 
-def newRound(scoreA, scoreB):
-  message_display('Next Round get Ready', scoreA, scoreB)
+def newRound():
+  message_display('Next Round get Ready')
 
 
 
 # -----------Main Program----------
-def main_loop(scoreA, scoreB):
+def main_loop():
 
   # The loop will be used to control how fast the screen updates
   carryOn = True
@@ -109,6 +115,9 @@ def main_loop(scoreA, scoreB):
     # --------Game logic should go here
     all_sprites_list.update()
 
+    #Makes it possible to use the scoreA and scoreB as global variables
+    global scoreA
+    global scoreB
 
     #Check if the ball is bouncing against any of the 4 walls:
     if ball.rect.x>=690:
@@ -119,7 +128,7 @@ def main_loop(scoreA, scoreB):
       ball.rect.x = 345
       ball.rect.y = 195
       pygame.display.update()
-      newRound(scoreA, scoreB)
+      newRound()
       ball.velocity[0] = -ball.velocity[0]
       #pygame.display.update(ball)
     if ball.rect.x<=0:
@@ -130,7 +139,7 @@ def main_loop(scoreA, scoreB):
       ball.rect.x = 345
       ball.rect.y = 195
       pygame.display.update()
-      newRound(scoreA, scoreB)
+      newRound()
       ball.velocity[0] = -ball.velocity[0]
       #pygame.display.update(ball)
     if ball.rect.y>490:
@@ -168,7 +177,7 @@ def main_loop(scoreA, scoreB):
 
 
 
-main_loop(0,0)
+main_loop()
 # Once we have exited the main programm loop we can stop the game engine:
 pygame.quit()
 
